@@ -11,46 +11,44 @@ Once you've entered an alias into the extension popup, you can invoke it by ente
 (Yes the additional two keystrokes required to invoke the omnibox is annoying, but as far as I know, there's no way around this, as this is now Chrome extensions work. If you know otherwise, please do let me know.)
 
 ## The particulars
-<ul>
-	<li>If more tokens are entered for a URL than the number of expected parameters, all tokens will be lumped together and applied to the final parameter. 
 
-	So for example:
+#### If more tokens are entered for a URL than the number of expected parameters, all tokens will be lumped together and applied to the final parameter. 
 
-	`a m "1443 Alabama St SF"`<br>
-	will take you to<br>
-	`https://maps.google.com/maps?q=1443%20Alabama%20St%20SF` without complaint
+So for example:
 
-	</li><li>To send a be-spaced token to a middling parameter, use quotes. 
+`a m "1443 Alabama St SF"`<br>
+will take you to<br>
+`https://maps.google.com/maps?q=1443%20Alabama%20St%20SF` without complaint
 
-	So:
+#### To send a be-spaced token to a middling parameter, use quotes. 
 
-	`a map "1443 Alabama St SF" bike 10`<br>
-	will take you to<br>
-	`https://maps.google.com/maps?q=1443%20Alabama%20St%20SF&lci=bike&z=10`<br>
+So:
 
-	</li><li>If you supply fewer tokens than a parameterized URL expects, the aliaser will attempt to recover the situation by simply leaving off those parameters if they are not part of the subdomain portion of the URL.
+`a map "1443 Alabama St SF" bike 10`<br>
+will take you to<br>
+`https://maps.google.com/maps?q=1443%20Alabama%20St%20SF&lci=bike&z=10`<br>
 
-	So:
+#### If you supply fewer tokens than a parameterized URL expects, the aliaser will attempt to recover the situation by simply leaving off those parameters if they are not part of the subdomain portion of the URL.
 
-	`a map "1443 Alabama St SF" bike`<br>
-	will take you to<br>
-	`https://maps.google.com/maps?q=1443%20Alabama%20St$20SF&lci=bike`<br>
+So:
 
-	And:
+`a map "1443 Alabama St SF" bike`<br>
+will take you to<br>
+`https://maps.google.com/maps?q=1443%20Alabama%20St$20SF&lci=bike`<br>
 
-	`a you`<br>
-	will take you to<br>
-	`http://www.youtube.com`<br>
+And:
 
-	And:
+`a you`<br>
+will take you to<br>
+`http://www.youtube.com`<br>
 
-	`a pint kittens`<br>
-	will take you to<br>
-	`http://www.pinterest.com/kittens/`<br>
+And:
 
-	But if you enter:
+`a pint kittens`<br>
+will take you to<br>
+`http://www.pinterest.com/kittens/`<br>
 
-	`a cl`<br>
-	there is nothing to be done, so nothing will be done.
-	</li>
-</ul>
+But if you enter:
+
+`a cl`<br>
+there is nothing to be done, so nothing will be done.
