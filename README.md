@@ -1,3 +1,3 @@
 Google Chrome Aliaser extension
 
-![](https://github.com/sarahhagstrom/chrome-aliaser/blob/master/docs/img/Aliaser.png)
+![Aliaser screenshot](https://raw.github.com/sarahhagstrom/chrome-aliaser/master/docs/img/Aliaser.png)
