@@ -6,15 +6,15 @@ Aliaser is a Chrome extension that brings the little-known FireFox parameterized
 
 Enter new aliases into the Aliaser extension popup, using '%s' to denote parameters.
 
-Once you've entered an alias into the extension popup, you can invoke it by entering 'a' followed by a space into the address bar to summon the extension omnibox, then type the alias followed by parameter values. 
+Once you've entered an alias into the extension popup, you can invoke it by entering 'a' followed by a space into the address bar to summon the extension omnibox, then type the alias followed by any parameter values it expects to see. 
 
-For example to invoke the 'cl' alias in the above screenshot, subbing '%s' with 'seattle' type this (i.e. to go to http://seattle.craigslist.org):
+For example, to invoke the 'cl' alias in the above screenshot, subbing '%s' with 'seattle' (i.e. to go to http://seattle.craigslist.org), type this:
 
 `a cl seattle`
 
-Or to find out what the spanish translation of "good job, you", just type
+Or to find out what the spanish translation of "good job, you!" is, just type
 
-`a spanishfor good job, you`
+`a spanishfor good job, you!`
 
 Neato!
 
@@ -22,7 +22,7 @@ Neato!
 
 ## A few particulars
 
-<i>If more tokens are entered for a URL than the number of expected parameters, all tokens will be lumped together and applied to the final parameter.</i>
+<i>If more tokens are entered for an alias than it expects, all tokens will be lumped together and applied to the final parameter.</i>
 
 So for example, `a m 1443 Alabama St SF`<br>
 will take you to `https://maps.google.com/maps?q=1443%20Alabama%20St%20SF` without complaint
