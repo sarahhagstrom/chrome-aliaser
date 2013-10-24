@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <script src="popup.js"></script>
+</head>
+<body>
+  <div><!-- this div is here so the popup will resize correctly on alias delete -->
+    <form name="aliasTabs">
+      <table id="aliasTable" width="100%">
+	<tbody>
+	</tbody>
+      </table>
+      <table id="inputTable" width="100%">
+	<tbody>
+	  <tr>
+	    <td align="center">
+	      <input type="text" id="addAliasKey" value=""/>
+	    </td>
+	    <td>
+	      <input type="text" id="addAliasValue" value=""/>
+	    </td>
+	    <td>
+	      <img id="addAliasButton" src="plus.png"/>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td><span class="help_text">map</span></td>
+	    <td><span class="help_text">https://maps.google.com/maps?lci=%s&z=%s&q=%s</span></td>
+	    <td></td>
+	  </tr>
+	</tbody>
+      </table>
+      <span id="message" style="display: none;"></span>
+    </form>
+  </div>
+</body>
+</HTML>

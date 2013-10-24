@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-width:350px;
+    overflow-x:scroll;
+    padding: 9px;
+}
+form {
+    margin-bottom: 0;
+}
+#aliasTable tr:hover {
+    background-color: #f6f6f6;
+}
+table tr td {
+    color: #232323;
+    font-size: 0.8em;
+    padding: 2px 6px;
+}
+table tr.highlight td span.aliasKey,
+table tr.highlight td span.aliasValue {
+    color: #0C6;
+    font-style: italic;
+}
+table tr td:first-child {
+    width:38px;
+    font-weight: bold;
+}
+#inputTable tr td:first-child {
+    width:52px;
+    padding-left: 0;
+    padding-right: 0;
+}
+table tr td:nth-child(3) {
+    font-size: 0.6em;
+    color: #dedede;
+    cursor: pointer;
+    max-width: 36px;
+    min-width: 36px;
+}
+#inputTable tr td:nth-child(3) {
+    max-width: 15px;
+    min-width: 15px;
+    text-align: center;
+}
+table tr td:nth-child(3):hover {
+    color: #a01919;
+}
+table tr td:first-child input {
+    width: 50px;
+}
+table tr td:nth-child(2) input {
+    width: 100%;
+}
+span.param {
+    font-weight: bold;
+    color: #2d57c4;
+}
+input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.03em;
+    box-shadow: inset 1px 3px 6px #efefef;
+    border: 1px solid #bcbcbc;
+    border-radius: 5px;
+    padding: 3px 6px;
+}
+.help_text {
+    position: relative;
+    top: -6px;
+    left: 5px;
+    font-weight: normal;
+    font-size: 0.85em;
+    color: #d0d0d0;
+}
+#message {
+    font-size: 0.95em;
+    color: #ce0c0c;
+}
