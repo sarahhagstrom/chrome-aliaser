@@ -12,43 +12,32 @@ Once you've entered an alias into the extension popup, you can invoke it by ente
 
 ## The particulars
 
-#### If more tokens are entered for a URL than the number of expected parameters, all tokens will be lumped together and applied to the final parameter. 
+<b>If more tokens are entered for a URL than the number of expected parameters, all tokens will be lumped together and applied to the final parameter.</b>
 
 So for example:
 
-`a m "1443 Alabama St SF"`<br>
+`a m 1443 Alabama St SF`<br>
 will take you to<br>
 `https://maps.google.com/maps?q=1443%20Alabama%20St%20SF` without complaint
 
-#### To send a be-spaced token to a middling parameter, use quotes. 
+<b>To send a be-spaced token to a middling parameter, use quotes.</b>
 
-So:
-
-`a map "1443 Alabama St SF" bike 10`<br>
+So `a map "1443 Alabama St SF" bike 10`<br>
 will take you to<br>
 `https://maps.google.com/maps?q=1443%20Alabama%20St%20SF&lci=bike&z=10`<br>
 
-#### If you supply fewer tokens than a parameterized URL expects, the aliaser will attempt to recover the situation by simply leaving off those parameters if they are not part of the subdomain portion of the URL.
+<b>If you supply fewer tokens than a parameterized URL expects, the aliaser will attempt to recover the situation by simply leaving off those parameters if they are not part of the subdomain portion of the URL.</b>
 
-So:
-
-`a map "1443 Alabama St SF" bike`<br>
+So `a map "1443 Alabama St SF" bike`<br>
 will take you to<br>
 `https://maps.google.com/maps?q=1443%20Alabama%20St$20SF&lci=bike`<br>
 
-And:
-
-`a you`<br>
+And `a you`<br>
 will take you to<br>
 `http://www.youtube.com`<br>
 
-And:
-
-`a pint kittens`<br>
+And `a pint kittens`<br>
 will take you to<br>
 `http://www.pinterest.com/kittens/`<br>
 
-But if you enter:
-
-`a cl`<br>
-there is nothing to be done, so nothing will be done.
+But if you enter `a cl`, there is nothing to be done, so nothing will be done.
