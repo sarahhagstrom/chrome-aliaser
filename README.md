@@ -2,13 +2,23 @@ Aliaser is a Chrome extension that brings the little-known FireFox parameterized
 
 ![Aliaser screenshot](https://raw.github.com/sarahhagstrom/chrome-aliaser/master/docs/img/Aliaser.png)
 
+## How to use this extension
+
 Enter new aliases into the Aliaser extension popup, using '%s' to denote parameters.
 
-Once you've entered an alias into the extension popup, you can invoke it by entering 'a' followed by a space into the address bar to summon the extension omnibox, then type the alias followed by parameter values. For example to invoke the 'cl' alias in the above screenshot, subbing '%s' with 'seattle' type this:
+Once you've entered an alias into the extension popup, you can invoke it by entering 'a' followed by a space into the address bar to summon the extension omnibox, then type the alias followed by parameter values. 
+
+For example to invoke the 'cl' alias in the above screenshot, subbing '%s' with 'seattle' type this (i.e. to go to http://seattle.craigslist.org):
 
 `a cl seattle`
 
-(Yes the additional two keystrokes required to invoke the omnibox is annoying, but as far as I know, there's no way around this, as this is now Chrome extensions work. If you know otherwise, please do let me know.)
+Or to find out what the spanish translation of "good job, you", just type
+
+`a spanishfor good job, you`
+
+Neato!
+
+(Yes the additional two keystrokes required to invoke the omnibox are annoying, but as far as I know, there's no way around this, as this is how Chrome extensions work. If you know otherwise, please do let me know.)
 
 ## A few particulars
 
