@@ -10,14 +10,14 @@ Once you've entered an alias into the extension popup, you can invoke it by ente
 
 (Yes the additional two keystrokes required to invoke the omnibox is annoying, but as far as I know, there's no way around this, as this is now Chrome extensions work. If you know otherwise, please do let me know.)
 
-## Particulars
+## The particulars
 - If more tokens are entered for a URL than the number of expected parameters, all tokens will be lumped together and applied to the final parameter. 
 
-So for example:
+...So for example:
 
-`a m "1443 Alabama St SF"`
-will take you to 
-`https://maps.google.com/maps?q=1443%20Alabama%20St%20SF` without complaint
+...`a m "1443 Alabama St SF"`<br>
+...will take you to 
+...`https://maps.google.com/maps?q=1443%20Alabama%20St%20SF` without complaint
 
 - To send a be-spaced token to a middling parameter, use quotes. 
 
