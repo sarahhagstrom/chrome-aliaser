@@ -1,24 +1,24 @@
-var logging = false;
+var chromeAliaser = chromeAliaser || {};
 
-var Aliaser = function () {
+(function (obj) {
     "use strict";
-    this.masterList = {};
-    this.dataFilename = "aliaserData";
+    obj.masterList = {};
+    obj.dataFilename = "aliaserData";
+    obj.logging = false;
 
-    var self = this,
-        getRawData = function () {
+    var getRawData = function () {
             // Retrieve the existing alias list (in string form) from local storage.
             // If it doesn't exist, create it as an empty string
             try {
-                var value = window.localStorage.getItem(self.dataFilename);
+                var value = window.localStorage.getItem(obj.dataFilename);
 
                 if (!value) {
-                    window.localStorage.setItem(self.dataFilename, "");
+                    window.localStorage.setItem(obj.dataFilename, "");
                     value = "";
                 }
                 return value.trim();
             } catch (e) {
-                self.log(e);
+                obj.log(e);
                 return "";
             }
         },
@@ -26,35 +26,35 @@ var Aliaser = function () {
             // replace the alias list in local storage, then
             // rebuild the master list map that's made from it
             try {
-                window.localStorage.setItem(self.dataFilename, value);
-                self.initMasterList();
+                window.localStorage.setItem(obj.dataFilename, value);
+                obj.initMasterList();
             } catch (e) {
-                self.log(e);
+                obj.log(e);
             }
         };
 
-    this.initMasterList = function () {
+    obj.initMasterList = function () {
         // Get the alias list from storage and turn it into a map
-        this.masterList = {};
+        obj.masterList = {};
 
         var value = getRawData(),
             arr = [],
             i = 0;
 
         if (value.length === 0) {
-            return this.masterList;
+            return obj.masterList;
         }
 
         arr = value.split(/\s+/);
 
         for (i = 0; i < arr.length; i += 2) {
-            this.masterList[arr[i]] = arr[i + 1];
+            obj.masterList[arr[i]] = arr[i + 1];
         }
 
-        return this.masterList;
+        return obj.masterList;
     };
 
-    this.groomURL = function (value) {
+    obj.groomURL = function (value) {
         value = value.trim();
 
         // If no protocol was specified, tack "http://" onto the front
@@ -67,7 +67,7 @@ var Aliaser = function () {
         return value;
     };
 
-    this.validateAlias = function (key, value) {
+    obj.validateAlias = function (key, value) {
         // Check key exists and contains only alpha-numeric characters
         var regex = /^[a-zA-Z0-9]+$/;
         if (!regex.test(key)) {
@@ -79,23 +79,23 @@ var Aliaser = function () {
         return regex.test(value);
     };
 
-    this.addAlias = function (key, value) {
+    obj.addAlias = function (key, value) {
         // first, groom and validate
         key = key.trim().substring(0, 20);
-        value = this.groomURL(value);
+        value = obj.groomURL(value);
 
-        if (!this.validateAlias(key, value)) {
+        if (!obj.validateAlias(key, value)) {
             throw "Invalid alias or URL";
         }
 
         // delete it if it already exists
-        this.removeAlias(key);
+        obj.removeAlias(key);
 
         // then add it back in
         setRawData(getRawData() + " " + key + " " + value);
     };
 
-    this.removeAlias = function (key) {
+    obj.removeAlias = function (key) {
         // remove an alias from the list in local storage
         var rawData = getRawData(),
             arr = [],
@@ -126,7 +126,7 @@ var Aliaser = function () {
         setRawData(arr.join(" "));
     };
 
-    this.tokenize = function (text) {
+    obj.tokenize = function (text) {
         // take what the user has entered in the omnibox and make
         // some sense of it.
 
@@ -177,15 +177,15 @@ var Aliaser = function () {
         return params;
     };
 
-    this.assembleURL = function (tokens) {
+    obj.assembleURL = function (tokens) {
         var aliasTerm, aliasValue, paramSplit, numParams, nonParamedURL, i, slashSplit;
 
         if (tokens.length > 0) {
             aliasTerm = tokens[0];
 
             // look up alias in our master list
-            if (aliaser.masterList.hasOwnProperty(aliasTerm)) {
-                aliasValue = aliaser.masterList[aliasTerm];
+            if (chromeAliaser.masterList.hasOwnProperty(aliasTerm)) {
+                aliasValue = chromeAliaser.masterList[aliasTerm];
                 // look for '%s' in our alias value to determine
                 // if this alias expects parameters
                 paramSplit = aliasValue.split("%s");
@@ -278,37 +278,37 @@ var Aliaser = function () {
 
             }
 
-            this.log("alias not found: " + aliasTerm);
-            this.log("master list: " + getRawData());
+            obj.log("alias not found: " + aliasTerm);
+            obj.log("master list: " + getRawData());
         }
 
         return "";
     };
 
-    this.go = function (text, tab) {
+    obj.go = function (text, tab) {
         // tokenize the input
-        var tokens = this.tokenize(text),
-            goToURL = this.assembleURL(tokens);
+        var tokens = obj.tokenize(text),
+            goToURL = obj.assembleURL(tokens);
 
         if (goToURL.length > 0) {
             chrome.tabs.update(tab.id, {url: goToURL});
         }
     };
 
-    this.log = function (message) {
-        if (logging) {
+    obj.log = function (message) {
+        if (obj.logging) {
             window.console.log(message);
         }
     };
-};
+}(chromeAliaser));
 
-var aliaser = new Aliaser();
-aliaser.initMasterList();
+chromeAliaser.initMasterList();
 
 chrome.omnibox.onInputEntered.addListener(function (text) {
+    "use strict";
     chrome.windows.getCurrent(function (window) {
-        chrome.tabs.getSelected(window.id,function (tab) {
-            aliaser.go(text, tab);
+        chrome.tabs.getSelected(window.id, function (tab) {
+            chromeAliaser.go(text, tab);
         });
     });
 });
