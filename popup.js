@@ -1,3 +1,5 @@
+// TODO: fix width issue, hides [delete]
+
 var aliaser_popup = {
     displayMessage: function (text) {
         "use strict";
@@ -29,70 +31,85 @@ var aliaser_popup = {
         var self = this;
 
         chrome.runtime.getBackgroundPage(function (backgroundPage) {
-            var masterList = backgroundPage.aliaser.masterList,
-                keys = [],
-                i,
-                aliasTable = document.getElementById('aliasTable'),
-                oldTbody = aliasTable.getElementsByTagName("tbody")[0],
-                newTbody = document.createElement('tbody'),
-                rowCount,
-                row,
-                cell0,
-                cell1,
-                cell2,
-                deleteKeys;
-
-            for (i in masterList) {
-                if (masterList.hasOwnProperty(i)) {
-                    keys.push(i);
-                }
-            }
-
-            keys = keys.sort();
-
-            // Generate the table of existing aliases
-            for (i in keys) {
-                if (keys.hasOwnProperty(i)) {
-                    rowCount = newTbody.rows.length;
-                    row = newTbody.insertRow(rowCount);
-                    cell0 = row.insertCell(0);
-                    cell1 = row.insertCell(1);
-                    cell2 = row.insertCell(2);
-                    cell0.innerHTML = '<span class="aliasKey">' + keys[i] + '</span>';
-                    cell1.innerHTML = '<span class="aliasValue">' + masterList[keys[i]].replace(/\%s/g, '<span class="param">%s</span>') + '<span>';
-                    cell2.innerHTML = '<a class="deleteKey" id="delete_' + keys[i] + '">[delete]</a>';
-                    cell0.vAlign = "top";
-                    cell1.vAlign = "top";
-                    cell2.vAlign = "top";
-
-                    if (keys[i] === highlightKey) {
-                        row.className = "highlight";
-                        setTimeout(this.undoHighlights, 1000);
-                    }
-                }
-            }
-
-            aliasTable.replaceChild(newTbody, oldTbody);
-
-            // Bind delete on each row
-            deleteKeys = document.getElementsByClassName('deleteKey');
-
-            for (i = 0; i < deleteKeys.length; i++) {
-                deleteKeys[i].addEventListener('click', function () {
-                    self.deleteItem(this);
-                });
-            }
-
-            // Populate or depopulate the add-form inputs
-            if (repopulate) {
-                document.getElementById('addAliasKey').value = "";
-                document.getElementById('addAliasValue').value = "";
-            } else {
-                chrome.tabs.getSelected(null, function (tab) {
-                    document.getElementById('addAliasValue').value = tab.url;
-                });
-            }
+            self.buildTable(backgroundPage, repopulate, highlightKey);
         });
+    },
+    buildTable: function (backgroundPage, repopulate, highlightKey) {
+        "use strict";
+
+        var masterList = backgroundPage.aliaser.masterList,
+            keys = [],
+            i,
+            aliasTable = document.getElementById('aliasTable'),
+            oldTbody = aliasTable.getElementsByTagName("tbody")[0],
+            newTbody = document.createElement('tbody'),
+            deleteKeys,
+            self = this;
+
+        for (i in masterList) {
+            if (masterList.hasOwnProperty(i)) {
+                keys.push(i);
+            }
+        }
+
+        keys = keys.sort();
+
+        // Generate the table of existing aliases
+        for (i in keys) {
+            if (keys.hasOwnProperty(i)) {
+                this.buildRow(newTbody, keys[i], masterList[keys[i]], highlightKey);
+            }
+        }
+
+        aliasTable.replaceChild(newTbody, oldTbody);
+
+        // Bind delete on each row
+        deleteKeys = document.getElementsByClassName('deleteKey');
+
+        for (i = 0; i < deleteKeys.length; i++) {
+            deleteKeys[i].addEventListener('click', function () {
+                self.deleteItem(this);
+            });
+        }
+
+        // Bind edit on each row
+        var topLevelRows = aliasTable.getElementsByTagName("tr");
+
+        for (i in topLevelRows) {
+            if (topLevelRows.hasOwnProperty(i)) {
+
+            }
+        }
+
+        // Populate or depopulate the add-form inputs
+        if (repopulate) {
+            document.getElementById('addAliasKey').value = "";
+        }
+
+        chrome.tabs.getSelected(null, function (tab) {
+            document.getElementById('addAliasValue').value = tab.url;
+        });
+    },
+    buildRow: function (tableBody, key, value, highlightKey) {
+        "use strict";
+
+        var rowCount = tableBody.rows.length,
+            row = tableBody.insertRow(rowCount),
+            cell0 = row.insertCell(0),
+            cell1 = row.insertCell(1),
+            cell2 = row.insertCell(2);
+
+        cell0.innerHTML = '<span class="aliasKey">' + key + '</span>';
+        cell1.innerHTML = '<span class="aliasValue"><div style="word-wrap: break-word">' + value.replace(/\%s/g, '<span class="param">%s</span>') + '</div></span>';
+        cell2.innerHTML = '<a class="deleteKey" id="delete_' + key + '">[delete]</a>';
+        cell0.vAlign = "top";
+        cell1.vAlign = "top";
+        cell2.vAlign = "top";
+
+        if (key === highlightKey) {
+            row.className = "highlight";
+            setTimeout(this.undoHighlights, 1000);
+        }
     },
     addItem: function () {
         "use strict";

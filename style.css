@@ -1,14 +1,11 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    min-width:350px;
-    overflow-x:scroll;
+    min-width: 400px;
+    overflow: scroll;
     padding: 9px;
 }
 form {
     margin-bottom: 0;
-}
-#aliasTable tr:hover {
-    background-color: #f6f6f6;
 }
 table tr td {
     color: #232323;
@@ -24,22 +21,12 @@ table tr td:first-child {
     width:38px;
     font-weight: bold;
 }
-#inputTable tr td:first-child {
-    width:52px;
-    padding-left: 0;
-    padding-right: 0;
-}
 table tr td:nth-child(3) {
     font-size: 0.6em;
     color: #dedede;
     cursor: pointer;
     max-width: 36px;
     min-width: 36px;
-}
-#inputTable tr td:nth-child(3) {
-    max-width: 15px;
-    min-width: 15px;
-    text-align: center;
 }
 table tr td:nth-child(3):hover {
     color: #a01919;
@@ -49,6 +36,19 @@ table tr td:first-child input {
 }
 table tr td:nth-child(2) input {
     width: 100%;
+}
+#inputTable tr td:first-child {
+    width:52px;
+    padding-left: 0;
+    padding-right: 0;
+}
+#inputTable tr td:nth-child(3) {
+    max-width: 15px;
+    min-width: 15px;
+    text-align: center;
+}
+#aliasTable tr:hover {
+    background-color: #f6f6f6;
 }
 span.param {
     font-weight: bold;
