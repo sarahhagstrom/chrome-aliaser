@@ -12,26 +12,28 @@ Enter new aliases into the Aliaser extension popup, using <b>%s</b> to denote pa
 
 Once you've entered an alias into the extension popup, you can invoke it by entering <b><i>a</i></b> followed by a space into the address bar to summon the extension omnibox, then type the alias followed by any parameter values it expects to see.
 
-For example, to invoke the 'cl' alias in the above screenshot, subbing <b>%s</b> with <b>seattle</b> (i.e. to go to http://seattle.craigslist.org), type this:
-
-`a cl seattle`
-
-Or to find out what the spanish translation of "good job, you!" is, just type
+For example, to invoke the <b>spanishfor</b> alias in the above screenshot to find out what the spanish translation of "good job, you!" is, just type
 
 `a spanishfor good job, you!`
 
-Neato!
+## Multiple parameters
 
-(Yes the additional two keystrokes required to invoke the omnibox are annoying, but as far as I know, there's no way around this, as this is how Chrome extensions work. If you know otherwise, please do let me know.)
+Of course, while this extension provides a handy toolbar popup reference for your aliases, if you define this as a custom search engine in Chrome instead, you can do away with the extra two keystrokes (<b>a</b> followed by <b>space</b>) at the beginning of this command.
+
+The service this extension really provides over Chrome's custom search engines is that it allows you to use multiple <b>%s</b> parameters in a URL.
+
+So for example, using the <b>bikes</b> alias in the above screenshot, the following command will take you to all Univega bikes posted for sale in Seattle's Craigslist for $200 to $600:
+
+`a bikes seattle univega 200 600`
 
 ## A few particulars
 
 <i>If more tokens are entered for an alias than it expects, all tokens will be lumped together and applied to the final parameter.</i>
 
-So for example, `a m 1443 Alabama St SF`<br>
-will take you to `https://maps.google.com/maps?q=1443%20Alabama%20St%20SF` without complaint
+So for example, `a a 3 wolves howling at the moon`<br>
+will take you to `http://www.amazon.com/s/?field-keywords=3%20wolves%20howling%20at%20the%20moon` without complaint
 
-<i>To send a be-spaced token to a middling parameter, use quotes.</i>
+<i>To send a spaced-out token to a middling parameter, use quotes.</i>
 
 So `a map "1443 Alabama St SF" bike 10`<br>
 will take you to `https://maps.google.com/maps?q=1443%20Alabama%20St%20SF&lci=bike&z=10`<br>
@@ -44,7 +46,4 @@ will take you to `https://maps.google.com/maps?q=1443%20Alabama%20St$20SF&lci=bi
 And `a you`<br>
 will take you to `http://www.youtube.com`<br>
 
-And `a pint kittens`<br>
-will take you to `http://www.pinterest.com/kittens/`<br>
-
-But if you enter `a cl`, there is nothing to be done, so nothing will be done.
+But if you enter `a bikes`, there is nothing to be done, so nothing will be done.
