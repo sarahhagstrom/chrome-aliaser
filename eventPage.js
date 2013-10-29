@@ -178,7 +178,7 @@ var chromeAliaser = chromeAliaser || {};
     };
 
     obj.assembleURL = function (tokens) {
-        var aliasTerm, aliasValue, paramSplit, numParams, nonParamedURL, i, slashSplit;
+        var aliasTerm, aliasValue, paramSplit, numParams, nonParamedURL, slashSplit, result;
 
         if (tokens.length > 0) {
             aliasTerm = tokens[0];
@@ -198,44 +198,48 @@ var chromeAliaser = chromeAliaser || {};
                     // leaving us just the param values the user entered
                     tokens.shift();
 
-                    // get rid of the empty last paramSplit item, which will be there
-                    // if "%s" occurs at the end of aliasValue
-                    if (paramSplit[numParams - 1].length === 0) {
-                        paramSplit.pop();
-                    }
+                    // given list entry: map-> http://maps.google.com/maps?z=%s&lic=%s&q=%s
+                    // and omni entry: map 17 bike 2908 Bryant Ave S Minneapolis MN
+                    // tokens now has: [17,bike,2908,Bryant,Ave,S,Minneapolis,MN]
+                    // paramSplit now has: [http://maps.google.com/maps?z=,lic=,q=,]
 
                     if (tokens.length > 0) {
-                        var result = [];
+                        result = [];
 
-                        // given list entry: map-> http://maps.google.com/maps?z=%s&lic=%s&q=%s
-                        // and omni entry: map 17 bike 2908 Bryant Ave S Minneapolis MN
-                        // tokens now has: [17,bike,2908,Bryant,Ave,S,Minneapolis,MN]
-                        // paramSplit now has: [http://maps.google.com/maps?z=,lic=,q=]
-                        for (i = 0; i < paramSplit.length && i < tokens.length; i++) {
-                            result.push(paramSplit[i]);
-                            result.push(tokens[i]);
-                        }
+                        while (paramSplit.length > 0) {
 
-                        if (i >= tokens.length && i < paramSplit.length) {
-                            // we're out of tokens, but the alias value goes on.
-                            // if the next segment of the alias value
-                            // ends with "=", ignore it and all remaining
-                            // segments.
-                            // otherwise, append the next segment, but stop
-                            // there.
-                            // this allows http://%s.craigslist.org
-                            // to work while also allowing a user to use
-                            // a smaller set of parameters on a url like
-                            // http://maps.google.com/map?q=%s&lci=%s&z=%s
-                            if (paramSplit[i][paramSplit[i].length - 1] !== "=") {
-                                result.push(paramSplit[i]);
+                            result.push(paramSplit.shift());
+
+                            if (paramSplit.length === 1) {
+                                while (tokens.length > 0) {
+                                    result.push(tokens.shift());
+                                    if (tokens.length > 0) {
+                                        result.push("%20");
+                                    }
+                                }
                             }
-                        } else {
-                            // If we have more tokens than parameters, the rest are
-                            // considered part of the last parameter.
-                            while (i < tokens.length) {
-                                result.push("%20" + tokens[i]);
-                                i++;
+
+                            if (tokens.length > 0) {
+                                result.push(tokens.shift());
+                            }
+
+                            if (tokens.length === 0) {
+                                // we're out of tokens, but the alias value goes on.
+                                // if the next segment of the alias value
+                                // ends with "=", ignore it and all remaining
+                                // segments.
+                                // otherwise, append the next segment, but stop
+                                // there.
+                                // this allows http://%s.craigslist.org
+                                // to work while also allowing a user to use
+                                // a smaller set of parameters on a url like
+                                // http://maps.google.com/map?q=%s&lci=%s&z=%s
+
+                                if (paramSplit.length > 0 && paramSplit[0][paramSplit[0].length - 1] !== "=") {
+                                    result.push(paramSplit.shift());
+                                }
+
+                                break;
                             }
                         }
 

@@ -182,7 +182,7 @@ describe("Assemble URL from tokens", function() {
 		    .toEqual("http://www.youtube.com/?q=cute%20overload");
 		expect(chromeAliaser.assembleURL(["pint", "kittens", "puppies"]))
 		    .toEqual("http://www.pinterest.com/kittens/puppies/");
-	        expect(chromeAliaser.assembleURL(["map", "510%20Larkin%20St%20SF", "bike", "17"]))
+	    expect(chromeAliaser.assembleURL(["map", "510%20Larkin%20St%20SF", "bike", "17"]))
 		    .toEqual("https://maps.google.com/maps?q=510%20Larkin%20St%20SF&lci=bike&z=17");
 	});
 	it("Ignores extra tokens on a parameterless alias value", function() {
@@ -193,6 +193,12 @@ describe("Assemble URL from tokens", function() {
 		expect(chromeAliaser.assembleURL(["yt", "one", "two", "three"]))
 		    .toEqual("http://www.youtube.com/?q=one%20two%20three");
 	});
+    it("Doesn't need quotes if there's only one parameter, even if that parameter is in the middle of the URL", function() {
+        chromeAliaser.addAlias("bikemap", "https://maps.google.com/maps?q=%s&lci=bike");
+        expect(chromeAliaser.masterList["bikemap"]).toEqual("https://maps.google.com/maps?q=%s&lci=bike");
+        expect(chromeAliaser.assembleURL(["bikemap", "one", "two", "three"]))
+            .toEqual("https://maps.google.com/maps?q=one%20two%20three&lci=bike");
+    });
 	it("Works when there's a parameter in the middle of the URL", function() {
 		expect(chromeAliaser.assembleURL(["cl", "seattle"]))
 		    .toEqual("http://seattle.craigslist.org/");
