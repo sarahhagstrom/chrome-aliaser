@@ -1,14 +1,18 @@
-Aliaser is a Chrome extension that brings the little-known FireFox parameterized URL aliasing functionality to Chrome, but it's even better because it allows multiple parameters, while the FireFox aliases only allow one.
+Aliaser is a Chrome extension that provides multiple-parameter URL aliasing.
+
+Currently in Chrome, you can create single-parameter aliases by customizing your Search Engines in settings. However, you can only use one <b>%s</b> parameter.
+
+This extension provides similar functionality but with multiple <b>%s</b> parameters allowed in the URL. You can also use it for your single- and no-parameter aliases, of course
 
 ![Aliaser screenshot](https://raw.github.com/sarahhagstrom/chrome-aliaser/master/docs/img/Aliaser.png)
 
 ## How to use this extension
 
-Enter new aliases into the Aliaser extension popup, using '%s' to denote parameters.
+Enter new aliases into the Aliaser extension popup, using <b>%s</b> to denote parameters.
 
-Once you've entered an alias into the extension popup, you can invoke it by entering 'a' followed by a space into the address bar to summon the extension omnibox, then type the alias followed by any parameter values it expects to see. 
+Once you've entered an alias into the extension popup, you can invoke it by entering <b><i>a</i></b> followed by a space into the address bar to summon the extension omnibox, then type the alias followed by any parameter values it expects to see.
 
-For example, to invoke the 'cl' alias in the above screenshot, subbing '%s' with 'seattle' (i.e. to go to http://seattle.craigslist.org), type this:
+For example, to invoke the 'cl' alias in the above screenshot, subbing <b>%s</b> with <b>seattle</b> (i.e. to go to http://seattle.craigslist.org), type this:
 
 `a cl seattle`
 
