@@ -47,3 +47,7 @@ And `a you`<br>
 will take you to `http://www.youtube.com`<br>
 
 But if you enter `a bikes`, there is nothing to be done, so nothing will be done.
+
+## A blog post
+
+I've written up a blog post about this extension <a href="http://www.sarahhagstrom.com/2013/10/multiple-parameter-url-alias-extension-for-chrome/" target="_blank">here</a>
